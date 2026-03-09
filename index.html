@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Исторический граф · Россия начало XX в.</title>
+  <title>Исторический граф · шаблон (граф правее)</title>
   <style>
     * {
       margin: 0;
@@ -28,14 +28,13 @@
     html, body {
       min-height: 100vh;
       font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      background: #d8cfbe;  /* фон старая бумага */
+      background: #d8cfbe;
       background-image:
         repeating-linear-gradient(45deg, rgba(120, 80, 50, 0.03) 0px, rgba(120, 80, 50, 0.03) 2px, transparent 2px, transparent 8px),
         radial-gradient(circle at 30% 40%, rgba(180, 150, 110, 0.2), transparent 45%);
       color: #2f281b;
     }
 
-    /* эффект старой бумаги с тиснением */
     .grid-bg {
       position: fixed;
       inset: 0;
@@ -56,7 +55,6 @@
       z-index: 3;
     }
 
-    /* навигация — как старинная книжная закладка */
     .page-nav {
       display: flex;
       flex-wrap: wrap;
@@ -101,7 +99,6 @@
       color: #271e0f;
     }
 
-    /* главный заголовок в духе имперских манифестов */
     .hero {
       background: rgba(210, 185, 145, 0.2);
       backdrop-filter: blur(12px);
@@ -145,7 +142,6 @@
       font-style: italic;
     }
 
-    /* двухколоночный макет с «потертым» паспарту */
     .layout {
       display: grid;
       grid-template-columns: 300px 1fr;
@@ -199,7 +195,6 @@
       border-color: #b8b08b;
     }
 
-    /* граф — старая карта */
     .graph-panel {
       overflow: auto;
       padding: 16px;
@@ -208,7 +203,7 @@
     .graph-shell {
       position: relative;
       min-width: 960px;
-      height: 1220px;  /* чуть увеличил, чтобы поместилась 9-я нода */
+      height: 1220px;
       border-radius: 32px;
       background: #dacbb4;
       background-image:
@@ -220,14 +215,15 @@
       box-shadow: inset 0 0 40px #b6996b, 0 12px 28px #2f2417;
     }
 
-    /* вертикальная шкала времени в стиле старых хронографов */
+    /* вертикальная шкала времени */
     .years {
       position: absolute;
-      left: 20px;
+      left: 60px;
       top: 0;
-      width: 100px;
+      width: 120px;
       height: 100%;
       border-right: 2px dotted #8b7653;
+      z-index: 5; /* выше графа? нет, нам не важно, главное чтобы надписи были видны */
     }
 
     .year-mark {
@@ -243,6 +239,7 @@
       font-family: 'Cormorant Garamond', serif;
       text-transform: uppercase;
       letter-spacing: 1.5px;
+      white-space: nowrap;
     }
 
     .year-mark::after {
@@ -250,9 +247,10 @@
       font-size: 0.9rem;
       opacity: 0.6;
       margin-left: 6px;
+      flex-shrink: 0;
     }
 
-    /* узлы событий теперь с лавровым венком/орденской лентой */
+    /* узлы событий — СДВИНУТЫ ВПРАВО, чтобы не налезать на шкалу периодов */
     .event-node {
       position: absolute;
       width: 230px;
@@ -261,11 +259,12 @@
       background: #ece1cf;
       background: linear-gradient(145deg, #f3e7d3, #dacab0);
       border: 2px solid #ad885d;
-      border-radius: 28px 12px 28px 12px;  /* чуть "рваная" форма */
+      border-radius: 28px 12px 28px 12px;
       padding: 14px 14px 12px;
       box-shadow: 8px 12px 18px rgba(60, 40, 20, 0.4), inset 0 0 20px #ffeac2;
       transition: 0.15s;
       cursor: pointer;
+      z-index: 10;
     }
 
     .event-node::before {
@@ -354,7 +353,6 @@
       left: -11px;
     }
 
-    /* страницы событий (старинные фолианты) */
     .event-page-content {
       display: none;
       background: rgba(235, 220, 190, 0.75);
@@ -398,7 +396,6 @@
       padding-bottom: 5px;
     }
 
-    /* заглушка контента в стиле ампир */
     .placeholder-content {
       display: flex;
       align-items: center;
@@ -419,7 +416,6 @@
       opacity: 0.8;
     }
 
-    /* императорский акцент */
     hr.laurel {
       border: none;
       height: 6px;
@@ -433,7 +429,6 @@
 <div class="grid-bg"></div>
 <div class="wrap">
 
-  <!-- навигация 10 страниц с имперским шармом -->
   <div class="page-nav">
     <a class="page-link active" data-page="main">Главная · граф</a>
     <a class="page-link" data-page="event1">Событие 1</a>
@@ -450,8 +445,8 @@
   <!-- ГЛАВНАЯ СТРАНИЦА -->
   <div id="main-page" class="main-page-content">
     <section class="hero">
-      <h1>Революции в Российской империи</h1>
-      <p>1900–1922 · причинно-следственный граф событий, выполненный в стиле начала XX века. Лавровые ветви, благородная зелень и золото акцентов.</p>
+      <h1>Хронограф (пустой шаблон)</h1>
+      <p>1900–1922 · граф событий.</p>
     </section>
 
     <div class="layout">
@@ -463,13 +458,11 @@
           <div class="legend-item"><span class="legend-symbol merge"></span> <span>Слияние течений</span></div>
         </div>
         <hr class="laurel" />
-        <p style="font-size: 1.1rem; font-style:italic;">Сентябрь 1915 — август 1917…</p>
       </aside>
 
       <section class="panel graph-panel">
         <div class="graph-head">
           <h2 style="font-size: 2.4rem; margin-bottom: 0;">Граф событий</h2>
-          <p style="font-size: 1.2rem;">нажмите «страница» для перехода к пустому шаблону</p>
         </div>
         <div class="graph-shell" id="graphShell">
           <div class="years" id="years"></div>
@@ -480,47 +473,47 @@
     </div>
   </div>
 
-  <!-- 9 пустых страниц-шаблонов (без изменений, только визуал) -->
-  <div id="event1-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 1 · шаблон</h2></div><div class="placeholder-content"><span>📜 Февраль 1917 (пусто)</span><small>информация будет добавлена</small></div></div>
-  <div id="event2-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 2 · шаблон</h2></div><div class="placeholder-content"><span>📜 Апрельские тезисы</span><small>пустой шаблон</small></div></div>
-  <div id="event3-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 3 · шаблон</h2></div><div class="placeholder-content"><span>📜 Июльские дни</span><small>пустой шаблон</small></div></div>
-  <div id="event4-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 4 · шаблон</h2></div><div class="placeholder-content"><span>📜 Корниловское выступление</span><small>пустой шаблон</small></div></div>
-  <div id="event5-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 5 · шаблон</h2></div><div class="placeholder-content"><span>📜 Октябрь 1917</span><small>пустой шаблон</small></div></div>
-  <div id="event6-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 6 · шаблон</h2></div><div class="placeholder-content"><span>📜 Декреты о мире / земле</span><small>пустой шаблон</small></div></div>
-  <div id="event7-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 7 · шаблон</h2></div><div class="placeholder-content"><span>📜 Учредительное собрание</span><small>пустой шаблон</small></div></div>
-  <div id="event8-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 8 · шаблон</h2></div><div class="placeholder-content"><span>📜 Брестский мир</span><small>пустой шаблон</small></div></div>
-  <div id="event9-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 9 · шаблон</h2></div><div class="placeholder-content"><span>📜 Гражданская война</span><small>пустой шаблон</small></div></div>
+  <!-- 9 пустых страниц-шаблонов -->
+  <div id="event1-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 1 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
+  <div id="event2-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 2 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
+  <div id="event3-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 3 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
+  <div id="event4-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 4 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
+  <div id="event5-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 5 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
+  <div id="event6-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 6 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
+  <div id="event7-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 7 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
+  <div id="event8-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 8 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
+  <div id="event9-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 9 · шаблон</h2></div><div class="placeholder-content"><span>📄 пустая страница</span><small>информация будет добавлена</small></div></div>
 </div>
 
 <script>
   (function() {
-    // ИСПРАВЛЕНО: координата y для события 9 увеличена, чтобы не висела в воздухе. Теперь следует за событием 8.
+    // ГРАФ ПОЛНОСТЬЮ ОЧИЩЕН, КООРДИНАТЫ УВЕЛИЧЕНЫ (СДВИГ ВПРАВО)
     const graphData = {
       timelineMarks: [
-        { label: '1905–1914', y: 100 },
-        { label: '1915–фев.1917', y: 320 },
-        { label: '1917 (весна)', y: 540 },
-        { label: '1917 (осень)', y: 740 },
-        { label: '1918–1920', y: 980 },
-        { label: '1921–1922', y: 1150 }  // добавлена метка для финала
+        { label: 'Период 1', y: 100 },
+        { label: 'Период 2', y: 320 },
+        { label: 'Период 3', y: 540 },
+        { label: 'Период 4', y: 740 },
+        { label: 'Период 5', y: 980 },
+        { label: 'Период 6', y: 1150 }
       ],
       nodes: [
-        { id: 'e1', title: 'Событие 1', kind: 'Предпосылки', short: 'Революция 1905, манифест', x: 440, y: 110, lane: 'center', pageId: 'event1' },
-        { id: 'e2', title: 'Событие 2', kind: 'Ветвь', short: 'Первая мировая, кризис', x: 240, y: 320, lane: 'left', pageId: 'event2' },
-        { id: 'e3', title: 'Событие 3', kind: 'Ветвь', short: 'Распутинщина, дворцовые интриги', x: 640, y: 320, lane: 'right', pageId: 'event3' },
-        { id: 'e4', title: 'Событие 4', kind: 'Февраль 1917', short: 'Отречение Николая II', x: 220, y: 550, lane: 'left', pageId: 'event4' },
-        { id: 'e5', title: 'Событие 5', kind: 'Двоевластие', short: 'Советы и Временное правительство', x: 650, y: 550, lane: 'right', pageId: 'event5' },
-        { id: 'e6', title: 'Событие 6', kind: 'Октябрь 1917', short: 'Вооружённое восстание', x: 440, y: 750, lane: 'center', pageId: 'event6' },
-        { id: 'e7', title: 'Событие 7', kind: 'Первые декреты', short: 'Мир, земля', x: 260, y: 950, lane: 'left', pageId: 'event7' },
-        { id: 'e8', title: 'Событие 8', kind: 'Учр. собрание', short: 'Разгон Учредительного собрания', x: 620, y: 950, lane: 'right', pageId: 'event8' },
-        { id: 'e9', title: 'Событие 9', kind: 'Гражданская война', short: 'Белые vs Красные', x: 440, y: 1150, lane: 'center', pageId: 'event9' }  // ИСПРАВЛЕНО: теперь x=440, y=1150 — подключено к e7 и e8 через рёбра
+        { id: 'e1', title: 'Событие 1', kind: '—', short: 'краткое описание', x: 540, y: 110, lane: 'center', pageId: 'event1' },  // было 440
+        { id: 'e2', title: 'Событие 2', kind: '—', short: 'краткое описание', x: 340, y: 320, lane: 'left', pageId: 'event2' },   // было 240
+        { id: 'e3', title: 'Событие 3', kind: '—', short: 'краткое описание', x: 740, y: 320, lane: 'right', pageId: 'event3' },  // было 640
+        { id: 'e4', title: 'Событие 4', kind: '—', short: 'краткое описание', x: 320, y: 550, lane: 'left', pageId: 'event4' },   // было 220
+        { id: 'e5', title: 'Событие 5', kind: '—', short: 'краткое описание', x: 750, y: 550, lane: 'right', pageId: 'event5' },  // было 650
+        { id: 'e6', title: 'Событие 6', kind: '—', short: 'краткое описание', x: 540, y: 750, lane: 'center', pageId: 'event6' },  // было 440
+        { id: 'e7', title: 'Событие 7', kind: '—', short: 'краткое описание', x: 360, y: 950, lane: 'left', pageId: 'event7' },   // было 260
+        { id: 'e8', title: 'Событие 8', kind: '—', short: 'краткое описание', x: 720, y: 950, lane: 'right', pageId: 'event8' },  // было 620
+        { id: 'e9', title: 'Событие 9', kind: '—', short: 'краткое описание', x: 540, y: 1150, lane: 'center', pageId: 'event9' }  // было 440
       ],
       edges: [
         { from: 'e1', to: 'e2' }, { from: 'e1', to: 'e3' },
         { from: 'e2', to: 'e4' }, { from: 'e3', to: 'e5' },
         { from: 'e4', to: 'e6' }, { from: 'e5', to: 'e6' },
         { from: 'e6', to: 'e7' }, { from: 'e6', to: 'e8' },
-        { from: 'e7', to: 'e9' }, { from: 'e8', to: 'e9' }  // ДОБАВЛЕНО: e9 теперь получает связи от e7 и e8
+        { from: 'e7', to: 'e9' }, { from: 'e8', to: 'e9' }
       ]
     };
 
@@ -609,9 +602,9 @@
 
 <!--
    Изменения:
-   1. Полностью переработан стиль под эпоху начала XX века (бумага, золото, бордовый, лавровые акценты, антиква)
-   2. Скорректированы координаты события 9 (теперь y=1150, добавлены рёбра от e7 и e8, чтобы не висело)
-   3. Добавлены дополнительные метки времени и стрелки в старом стиле.
+   - Все координаты узлов (nodes.x) увеличены на 100px (например, 440 -> 540).
+   - Шкала периодов осталась на месте (left:60px, ширина 120px).
+   - Граф теперь целиком правее пунктира и не перекрывает надписи.
 -->
 </body>
 </html>
