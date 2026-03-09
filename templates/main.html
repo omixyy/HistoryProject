@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Шаблон: 10 страниц + граф событий</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121933;
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(255,255,255,0.08);
+      --line: #69b7ff;
+      --line-soft: rgba(105,183,255,0.22);
+      --text: #eef4ff;
+      --muted: #aebbd6;
+      --accent: #7c9cff;
+      --accent-2: #55d6ff;
+      --ok: #63e6be;
+      --danger: #ff8c8c;
+      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top left, rgba(85,214,255,0.12), transparent 28%),
+                  radial-gradient(circle at top right, rgba(124,156,255,0.12), transparent 32%),
+                  linear-gradient(180deg, #0a0f1d, #10172d 55%, #0b1020);
+      color: var(--text);
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      z-index: 0;
+    }
+
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 24px 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* навигация 10 страниц */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      background: rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: 60px;
+      border: 1px solid rgba(255,255,255,0.08);
+      align-items: center;
+    }
+
+    .page-link {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid transparent;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .page-link.active {
+      background: rgba(85,214,255,0.15);
+      border-color: rgba(85,214,255,0.3);
+      color: white;
+    }
+
+    .page-link:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    /* главная страница с графом */
+    .hero {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 1000px;
+      line-height: 1.6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 20px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    .side h2 { font-size: 22px; margin-bottom: 12px; }
+    .legend-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: rgba(255,255,255,0.04);
+      border-radius: 18px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .legend-symbol {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--accent-2), var(--accent));
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .legend-symbol.branch { background: linear-gradient(145deg, #ffd166, #ff922b); }
+    .legend-symbol.merge { background: linear-gradient(145deg, #63e6be, #20c997); }
+
+    .graph-panel {
+      overflow: auto;
+      padding: 20px;
+    }
+
+    .graph-shell {
+      position: relative;
+      min-width: 920px;
+      height: 1180px;
+      border-radius: 24px;
+      background: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                  rgba(10,15,30,0.7);
+      background-size: 40px 40px, 40px 40px;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .years {
+      position: absolute;
+      left: 14px;
+      top: 0;
+      width: 100px;
+      height: 100%;
+      border-right: 1px dashed rgba(255,255,255,0.12);
+    }
+
+    .year-mark {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+      color: #b4ccff;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      gap: 8px;
+    }
+    .year-mark::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .svg-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .nodes-layer {
+      position: absolute;
+      inset: 0;
+    }
+
+    .event-node {
+      position: absolute;
+      width: 220px;
+      min-height: 100px;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(180deg, rgba(18,25,51,0.96), rgba(20,28,55,0.95));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      transition: transform 0.15s, border-color 0.15s;
+      cursor: pointer;
+    }
+    .event-node:hover {
+      transform: translate(-50%, -50%) scale(1.02);
+      border-color: var(--accent-2);
+    }
+    .node-kind {
+      font-size: 11px;
+      background: rgba(124,156,255,0.2);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 40px;
+      margin-bottom: 8px;
+    }
+    .node-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .node-text {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .node-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 6px;
+    }
+    .node-actions button {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: white;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .node-actions button:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    .anchor-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent-2));
+      border-radius: 50%;
+      right: -7px;
+      top: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 15px var(--accent-2);
+    }
+    .event-node[data-lane="right"] .anchor-dot {
+      right: auto;
+      left: -7px;
+    }
+
+    /* страницы событий (пустые шаблоны) */
+    .event-page-content {
+      display: none;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      border-radius: 32px;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-top: 20px;
+      min-height: 70vh;
+    }
+
+    .event-page-content.active-page {
+      display: block;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+    .back-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 40px;
+      padding: 8px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .event-title {
+      font-size: 40px;
+      opacity: 0.7;
+      font-weight: 300;
+    }
+
+    /* заглушка контента */
+    .placeholder-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 400px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 28px;
+      border: 2px dashed rgba(255,255,255,0.1);
+      color: var(--muted);
+      font-size: 20px;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .placeholder-content small {
+      font-size: 14px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+
+  <!-- ========== НАВИГАЦИЯ 10 СТРАНИЦ (пустые шаблоны) ========= -->
+  <div class="page-nav">
+    <a class="page-link active" data-page="main">Главная · граф</a>
+    <a class="page-link" data-page="event1">Событие 1</a>
+    <a class="page-link" data-page="event2">Событие 2</a>
+    <a class="page-link" data-page="event3">Событие 3</a>
+    <a class="page-link" data-page="event4">Событие 4</a>
+    <a class="page-link" data-page="event5">Событие 5</a>
+    <a class="page-link" data-page="event6">Событие 6</a>
+    <a class="page-link" data-page="event7">Событие 7</a>
+    <a class="page-link" data-page="event8">Событие 8</a>
+    <a class="page-link" data-page="event9">Событие 9</a>
+  </div>
+
+  <!-- ========== ГЛАВНАЯ СТРАНИЦА (ГРАФ) ========== -->
+  <div id="main-page" class="main-page-content">
+    <section class="hero">
+      <h1>Исторический граф (шаблон)</h1>
+      <p>Базовая структура из 10 страниц. Главная с интерактивным графом + 9 страниц-заглушек для событий. Навигация работает, всё пустое — только скелет.</p>
+    </section>
+
+    <div class="layout">
+      <aside class="panel side">
+        <h2>Как читать граф</h2>
+        <p>Пояснения по графу — временная заглушка.</p>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-symbol"></span> <span>Обычное событие</span></div>
+          <div class="legend-item"><span class="legend-symbol branch"></span> <span>Ветвление</span></div>
+          <div class="legend-item"><span class="legend-symbol merge"></span> <span>Слияние</span></div>
+        </div>
+      </aside>
+
+      <section class="panel graph-panel">
+        <div class="graph-head">
+          <h2>Граф (хронология)</h2>
+          <p>Кнопка «Страница» ведёт на соответствующий шаблон (9 пустых страниц).</p>
+        </div>
+        <div class="graph-shell" id="graphShell">
+          <div class="years" id="years"></div>
+          <svg class="svg-layer" id="svgLayer" viewBox="0 0 920 1180"></svg>
+          <div class="nodes-layer" id="nodesLayer"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ========== 9 СТРАНИЦ-ЗАГЛУШЕК (пустые шаблоны) ========= -->
+  <div id="event1-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 1 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 1 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+  <div id="event2-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 2 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 2 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+  <div id="event3-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 3 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 3 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+  <div id="event4-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 4 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 4 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+  <div id="event5-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 5 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 5 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+  <div id="event6-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 6 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 6 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+  <div id="event7-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 7 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 7 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+  <div id="event8-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 8 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 8 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+  <div id="event9-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 9 · шаблон</h2></div>
+    <div class="placeholder-content">
+      <span>📄 Страница события 9 (пустая)</span>
+      <small>сюда позже будет добавлена информация</small>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    // Граф с 10 узлами (соответствуют 9 событиям + один дополнительный)
+    const graphData = {
+      timelineMarks: [
+        { label: 'Период 1', y: 90 },
+        { label: 'Период 2', y: 290 },
+        { label: 'Период 3', y: 520 },
+        { label: 'Период 4', y: 760 },
+        { label: 'Период 5', y: 1010 }
+      ],
+      nodes: [
+        { id: 'e1', title: 'Событие 1', kind: 'Исходное', short: 'Краткое описание 1', x: 430, y: 110, lane: 'center', pageId: 'event1' },
+        { id: 'e2', title: 'Событие 2', kind: 'Ветвь', short: 'Краткое описание 2', x: 250, y: 300, lane: 'left', pageId: 'event2' },
+        { id: 'e3', title: 'Событие 3', kind: 'Ветвь', short: 'Краткое описание 3', x: 610, y: 300, lane: 'right', pageId: 'event3' },
+        { id: 'e4', title: 'Событие 4', kind: 'Развитие', short: 'Краткое описание 4', x: 220, y: 540, lane: 'left', pageId: 'event4' },
+        { id: 'e5', title: 'Событие 5', kind: 'Развитие', short: 'Краткое описание 5', x: 640, y: 540, lane: 'right', pageId: 'event5' },
+        { id: 'e6', title: 'Событие 6', kind: 'Слияние', short: 'Краткое описание 6', x: 430, y: 770, lane: 'center', pageId: 'event6' },
+        { id: 'e7', title: 'Событие 7', kind: 'Итог', short: 'Краткое описание 7', x: 250, y: 1010, lane: 'left', pageId: 'event7' },
+        { id: 'e8', title: 'Событие 8', kind: 'Итог', short: 'Краткое описание 8', x: 610, y: 1010, lane: 'right', pageId: 'event8' },
+        { id: 'e9', title: 'Событие 9', kind: 'Финал', short: 'Краткое описание 9', x: 340, y: 1150, lane: 'left', pageId: 'event9' }
+      ],
+      edges: [
+        { from: 'e1', to: 'e2' }, { from: 'e1', to: 'e3' },
+        { from: 'e2', to: 'e4' }, { from: 'e3', to: 'e5' },
+        { from: 'e4', to: 'e6' }, { from: 'e5', to: 'e6' },
+        { from: 'e6', to: 'e7' }, { from: 'e6', to: 'e8' }
+      ]
+    };
+
+    // Элементы
+    const mainPage = document.getElementById('main-page');
+    const eventPages = document.querySelectorAll('.event-page-content');
+    const pageLinks = document.querySelectorAll('.page-link');
+    const nodesLayer = document.getElementById('nodesLayer');
+    const svgLayer = document.getElementById('svgLayer');
+    const yearsDiv = document.getElementById('years');
+
+    // Отрисовка меток лет
+    function renderMarks() {
+      yearsDiv.innerHTML = graphData.timelineMarks.map(m => `<div class="year-mark" style="top:${m.y}px">${m.label}</div>`).join('');
+    }
+
+    // Отрисовка узлов
+    function renderNodes() {
+      nodesLayer.innerHTML = '';
+      graphData.nodes.forEach(node => {
+        const el = document.createElement('div');
+        el.className = 'event-node';
+        el.dataset.id = node.id;
+        el.dataset.lane = node.lane;
+        el.style.left = node.x + 'px';
+        el.style.top = node.y + 'px';
+        el.innerHTML = `
+          <div class="node-kind">${node.kind}</div>
+          <div class="node-title">${node.title}</div>
+          <div class="node-text">${node.short}</div>
+          <div class="node-actions">
+            <button class="page-nav-btn" data-page="${node.pageId}">📄 Страница</button>
+            <button class="focus-btn" data-id="${node.id}">🔍 Фокус</button>
+          </div>
+          <div class="anchor-dot"></div>
+        `;
+        nodesLayer.appendChild(el);
+      });
+
+      // Кнопки "Страница" — переключение на страницу события
+      document.querySelectorAll('.page-nav-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const pageId = btn.dataset.page;
+          showEventPage(pageId);
+          updateActiveLink(pageId);
+        });
+      });
+
+      // Кнопка фокус — подсветка узла
+      document.querySelectorAll('.focus-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = btn.dataset.id;
+          document.querySelectorAll('.event-node').forEach(el => el.classList.remove('active'));
+          document.querySelector(`.event-node[data-id="${id}"]`)?.classList.add('active');
+        });
+      });
+    }
+
+    // Отрисовка рёбер
+    function renderEdges() {
+      const nodeMap = Object.fromEntries(graphData.nodes.map(n => [n.id, n]));
+      const paths = graphData.edges.map(e => {
+        const a = nodeMap[e.from], b = nodeMap[e.to];
+        if (!a || !b) return '';
+        const dx = Math.abs(b.x - a.x);
+        const cpY1 = a.y + Math.min(120, 60 + dx * 0.15);
+        const cpY2 = b.y - Math.min(120, 60 + dx * 0.15);
+        return `<path d="M ${a.x} ${a.y} C ${a.x} ${cpY1}, ${b.x} ${cpY2}, ${b.x} ${b.y}" stroke="#7faaff" stroke-width="2.5" fill="none" stroke-dasharray="6 6" marker-end="url(#arrow)"/>`;
+      }).join('');
+      svgLayer.innerHTML = `<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><polygon points="0 0, 8 5, 0 10" fill="#55d6ff"/></marker></defs>${paths}`;
+    }
+
+    // Переключение на главную
+    function showMainPage() {
+      mainPage.style.display = 'block';
+      eventPages.forEach(p => p.classList.remove('active-page'));
+    }
+
+    // Переключение на страницу события
+    function showEventPage(pageId) {
+      mainPage.style.display = 'none';
+      eventPages.forEach(p => p.classList.remove('active-page'));
+      const target = document.getElementById(pageId + '-page');
+      if (target) target.classList.add('active-page');
+    }
+
+    // Обновить активный пункт меню
+    function updateActiveLink(activePage) {
+      pageLinks.forEach(link => {
+        const attr = link.dataset.page;
+        link.classList.toggle('active', attr === activePage || (activePage === 'main' && attr === 'main'));
+      });
+    }
+
+    // Клики по верхнему меню
+    pageLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        if (page === 'main') {
+          showMainPage();
+          updateActiveLink('main');
+        } else {
+          showEventPage(page);
+          updateActiveLink(page);
+        }
+      });
+    });
+
+    // Кнопки "назад к графу"
+    document.querySelectorAll('.back-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showMainPage();
+        updateActiveLink('main');
+      });
+    });
+
+    // Инициализация графа
+    renderMarks();
+    renderNodes();
+    renderEdges();
+
+    // Начальное состояние: главная
+    showMainPage();
+    updateActiveLink('main');
+  })();
+</script>
+
+<!--
+  План на 10 марта выполнен:
+  - базовая структура из 10 страниц (главная + 9 страниц событий)
+  - страницы пустые (только шаблон)
+  - навигация работает
+  - граф событий присутствует с заглушками
+  - связи между страницами и графом реализованы (кнопки "Страница")
+-->
+</body>
+</html>
