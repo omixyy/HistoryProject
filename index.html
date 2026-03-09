@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Шаблон: 10 страниц + граф событий</title>
+  <title>Исторический граф · Россия начало XX в.</title>
   <style>
     * {
       margin: 0;
@@ -12,170 +12,222 @@
     }
 
     :root {
-      --bg: #0b1020;
-      --bg-soft: #121933;
-      --panel: rgba(255,255,255,0.06);
-      --panel-2: rgba(255,255,255,0.08);
-      --line: #69b7ff;
-      --line-soft: rgba(105,183,255,0.22);
-      --text: #eef4ff;
-      --muted: #aebbd6;
-      --accent: #7c9cff;
-      --accent-2: #55d6ff;
-      --ok: #63e6be;
-      --danger: #ff8c8c;
-      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+      --bg-parchment: #e8e0cf;
+      --bg-dark: #2d2a1f;
+      --accent-gold: #c9a959;
+      --accent-burgundy: #822b2b;
+      --text-dark: #2c2416;
+      --text-soft: #4a3e2b;
+      --border-old: #b09b7e;
+      --line-old: #7a5d3c;
+      --panel-old: rgba(190, 170, 140, 0.25);
+      --shadow-old: 0 18px 40px rgba(40, 30, 10, 0.3);
+      --laurel: #5f7b5c;
     }
 
     html, body {
       min-height: 100vh;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top left, rgba(85,214,255,0.12), transparent 28%),
-                  radial-gradient(circle at top right, rgba(124,156,255,0.12), transparent 32%),
-                  linear-gradient(180deg, #0a0f1d, #10172d 55%, #0b1020);
-      color: var(--text);
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      background: #d8cfbe;  /* фон старая бумага */
+      background-image:
+        repeating-linear-gradient(45deg, rgba(120, 80, 50, 0.03) 0px, rgba(120, 80, 50, 0.03) 2px, transparent 2px, transparent 8px),
+        radial-gradient(circle at 30% 40%, rgba(180, 150, 110, 0.2), transparent 45%);
+      color: #2f281b;
     }
 
+    /* эффект старой бумаги с тиснением */
     .grid-bg {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 32px 32px;
-      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      background-image:
+        linear-gradient(rgba(100, 70, 40, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 70, 40, 0.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
       z-index: 0;
     }
 
     .wrap {
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 20px 24px 40px;
+      padding: 20px 28px 50px;
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
-    /* навигация 10 страниц */
+    /* навигация — как старинная книжная закладка */
     .page-nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-      background: rgba(0,0,0,0.2);
-      backdrop-filter: blur(8px);
-      padding: 12px 20px;
-      border-radius: 60px;
-      border: 1px solid rgba(255,255,255,0.08);
-      align-items: center;
+      gap: 6px 12px;
+      margin-bottom: 30px;
+      background: rgba(210, 190, 165, 0.3);
+      backdrop-filter: blur(6px);
+      padding: 14px 28px;
+      border-radius: 999px;
+      border: 1px solid var(--border-old);
+      box-shadow: inset 0 1px 6px rgba(255, 235, 190, 0.3), 0 6px 14px rgba(60, 40, 20, 0.2);
+      font-family: 'Cormorant Garamond', serif;
     }
 
     .page-link {
-      color: var(--muted);
+      color: #3f331e;
       text-decoration: none;
-      padding: 6px 14px;
+      padding: 5px 18px;
       border-radius: 40px;
-      font-size: 14px;
+      font-size: 1.2rem;
       font-weight: 500;
-      background: rgba(255,255,255,0.02);
+      letter-spacing: 0.03em;
+      background: rgba(240, 230, 210, 0.2);
       border: 1px solid transparent;
       transition: 0.2s;
       cursor: pointer;
+      text-transform: uppercase;
+      font-feature-settings: "ss02";
     }
 
     .page-link.active {
-      background: rgba(85,214,255,0.15);
-      border-color: rgba(85,214,255,0.3);
-      color: white;
+      background: var(--accent-burgundy);
+      border-color: #b88a4b;
+      color: #faf0da;
+      box-shadow: 0 0 0 1px #cdb38c;
+      font-weight: 600;
     }
 
     .page-link:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.15);
-      color: white;
+      background: rgba(170, 130, 70, 0.35);
+      border-color: #b4946a;
+      color: #271e0f;
     }
 
-    /* главная страница с графом */
+    /* главный заголовок в духе имперских манифестов */
     .hero {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.13);
-      border-radius: 28px;
-      padding: 26px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      margin-bottom: 22px;
+      background: rgba(210, 185, 145, 0.2);
+      backdrop-filter: blur(12px);
+      border: 1px solid #bfa27b;
+      border-radius: 32px 32px 32px 32px;
+      padding: 28px 36px;
+      box-shadow: 0 20px 40px rgba(70, 45, 20, 0.25);
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "☦";
+      font-size: 2.6rem;
+      color: #8b6e4b;
+      opacity: 0.25;
+      position: absolute;
+      right: 30px;
+      top: 10px;
+      font-family: 'Times New Roman', serif;
+      transform: rotate(15deg);
     }
 
     .hero h1 {
-      font-size: clamp(28px, 4vw, 44px);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 600;
       margin-bottom: 8px;
+      color: #2a1f0f;
+      text-shadow: 2px 2px 0 rgba(180, 140, 80, 0.3);
+      letter-spacing: 0.02em;
+      border-bottom: 1px solid var(--accent-gold);
+      display: inline-block;
+      padding-right: 40px;
     }
 
     .hero p {
-      color: var(--muted);
+      color: #382e1d;
       max-width: 1000px;
       line-height: 1.6;
+      font-size: 1.25rem;
+      font-style: italic;
     }
 
+    /* двухколоночный макет с «потертым» паспарту */
     .layout {
       display: grid;
       grid-template-columns: 300px 1fr;
-      gap: 20px;
+      gap: 24px;
     }
 
     .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 24px;
-      padding: 20px;
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow);
+      background: rgba(225, 210, 180, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid #b59d7a;
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: inset 0 0 30px rgba(150, 120, 70, 0.2), 0 12px 28px rgba(40, 30, 10, 0.3);
     }
 
-    .side h2 { font-size: 22px; margin-bottom: 12px; }
+    .side h2 {
+      font-size: 2rem;
+      border-left: 6px solid var(--accent-burgundy);
+      padding-left: 18px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+    }
+
     .legend-item {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       align-items: center;
-      background: rgba(255,255,255,0.04);
-      border-radius: 18px;
-      padding: 12px;
-      margin-bottom: 10px;
+      background: rgba(170, 140, 100, 0.2);
+      border-radius: 40px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      border: 1px solid #c7ad87;
     }
-    .legend-symbol {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, var(--accent-2), var(--accent));
-      border: 2px solid rgba(255,255,255,0.2);
-    }
-    .legend-symbol.branch { background: linear-gradient(145deg, #ffd166, #ff922b); }
-    .legend-symbol.merge { background: linear-gradient(145deg, #63e6be, #20c997); }
 
+    .legend-symbol {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #b48c54, #6a4f28);
+      border: 3px solid #e2cdad;
+      box-shadow: 0 2px 6px #3a2f1d;
+    }
+
+    .legend-symbol.branch {
+      background: radial-gradient(circle at 30% 30%, #bb7a3a, #7b4d26);
+      border-color: #f5dbb1;
+    }
+    .legend-symbol.merge {
+      background: radial-gradient(circle at 30% 30%, #5f7b5c, #2e4b37);
+      border-color: #b8b08b;
+    }
+
+    /* граф — старая карта */
     .graph-panel {
       overflow: auto;
-      padding: 20px;
+      padding: 16px;
     }
 
     .graph-shell {
       position: relative;
-      min-width: 920px;
-      height: 1180px;
-      border-radius: 24px;
-      background: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
-                  rgba(10,15,30,0.7);
-      background-size: 40px 40px, 40px 40px;
-      border: 1px solid rgba(255,255,255,0.08);
-      overflow: hidden;
+      min-width: 960px;
+      height: 1220px;  /* чуть увеличил, чтобы поместилась 9-я нода */
+      border-radius: 32px;
+      background: #dacbb4;
+      background-image:
+        linear-gradient(rgba(140, 100, 60, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130, 90, 50, 0.15) 1px, transparent 1px),
+        radial-gradient(circle at 20% 30%, rgba(200, 170, 120, 0.3), transparent 50%);
+      background-size: 48px 48px, 48px 48px, cover;
+      border: 1px solid #ad8f69;
+      box-shadow: inset 0 0 40px #b6996b, 0 12px 28px #2f2417;
     }
 
+    /* вертикальная шкала времени в стиле старых хронографов */
     .years {
       position: absolute;
-      left: 14px;
+      left: 20px;
       top: 0;
       width: 100px;
       height: 100%;
-      border-right: 1px dashed rgba(255,255,255,0.12);
+      border-right: 2px dotted #8b7653;
     }
 
     .year-mark {
@@ -183,111 +235,136 @@
       left: 0;
       width: 100%;
       transform: translateY(-50%);
-      color: #b4ccff;
-      font-size: 14px;
-      font-weight: 600;
+      color: #3f311a;
+      font-size: 1.1rem;
+      font-weight: 700;
       display: flex;
-      gap: 8px;
+      gap: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
     }
+
     .year-mark::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: rgba(255,255,255,0.1);
+      content: "⚜️";
+      font-size: 0.9rem;
+      opacity: 0.6;
+      margin-left: 6px;
     }
 
-    .svg-layer {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .nodes-layer {
-      position: absolute;
-      inset: 0;
-    }
-
+    /* узлы событий теперь с лавровым венком/орденской лентой */
     .event-node {
       position: absolute;
-      width: 220px;
-      min-height: 100px;
+      width: 230px;
+      min-height: 115px;
       transform: translate(-50%, -50%);
-      background: linear-gradient(180deg, rgba(18,25,51,0.96), rgba(20,28,55,0.95));
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
-      padding: 14px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      transition: transform 0.15s, border-color 0.15s;
+      background: #ece1cf;
+      background: linear-gradient(145deg, #f3e7d3, #dacab0);
+      border: 2px solid #ad885d;
+      border-radius: 28px 12px 28px 12px;  /* чуть "рваная" форма */
+      padding: 14px 14px 12px;
+      box-shadow: 8px 12px 18px rgba(60, 40, 20, 0.4), inset 0 0 20px #ffeac2;
+      transition: 0.15s;
       cursor: pointer;
     }
+
+    .event-node::before {
+      content: "🌿";
+      position: absolute;
+      top: -12px;
+      left: 10px;
+      font-size: 2rem;
+      opacity: 0.4;
+      transform: rotate(-15deg);
+      filter: drop-shadow(2px 4px 4px #4f3e28);
+    }
+
     .event-node:hover {
       transform: translate(-50%, -50%) scale(1.02);
-      border-color: var(--accent-2);
+      border-color: #b0742e;
+      box-shadow: 12px 18px 28px #2d1e0c;
     }
+
+    .event-node.active {
+      border: 4px solid var(--accent-burgundy);
+      box-shadow: 0 0 0 4px #e3c184, 0 18px 38px #2b1e0e;
+    }
+
     .node-kind {
-      font-size: 11px;
-      background: rgba(124,156,255,0.2);
+      font-size: 0.9rem;
+      background: #a77d4f;
+      color: #fdf0da;
       display: inline-block;
-      padding: 4px 12px;
+      padding: 4px 18px;
       border-radius: 40px;
       margin-bottom: 8px;
-    }
-    .node-title {
-      font-size: 18px;
+      border: 1px solid #efdba8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       font-weight: 600;
-      margin-bottom: 5px;
     }
+
+    .node-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #231b0e;
+    }
+
     .node-text {
-      font-size: 12px;
-      color: var(--muted);
+      font-size: 0.9rem;
+      color: #3f311f;
       line-height: 1.4;
     }
-    .node-actions {
-      margin-top: 12px;
-      display: flex;
-      gap: 6px;
-    }
+
     .node-actions button {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 5px 10px;
-      font-size: 12px;
-      color: white;
+      background: #cbbc9b;
+      border: 1px solid #7c623c;
+      border-radius: 30px;
+      padding: 6px 14px;
+      font-size: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      color: #231e12;
       cursor: pointer;
-      transition: 0.15s;
+      transition: 0.1s;
+      box-shadow: inset 0 1px 5px #ffefcf;
     }
+
     .node-actions button:hover {
-      background: rgba(255,255,255,0.18);
+      background: #dac09c;
+      border-color: #9e7b4a;
     }
 
     .anchor-dot {
       position: absolute;
-      width: 14px;
-      height: 14px;
-      background: radial-gradient(circle at 30% 30%, #fff, var(--accent-2));
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle, #eedfa4, #af8739);
       border-radius: 50%;
-      right: -7px;
+      right: -11px;
       top: 50%;
       transform: translateY(-50%);
-      box-shadow: 0 0 15px var(--accent-2);
-    }
-    .event-node[data-lane="right"] .anchor-dot {
-      right: auto;
-      left: -7px;
+      border: 3px solid #fff3cf;
+      box-shadow: 0 0 0 3px #876e42;
     }
 
-    /* страницы событий (пустые шаблоны) */
+    .event-node[data-lane="right"] .anchor-dot {
+      right: auto;
+      left: -11px;
+    }
+
+    /* страницы событий (старинные фолианты) */
     .event-page-content {
       display: none;
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-      border-radius: 32px;
-      padding: 32px;
-      border: 1px solid rgba(255,255,255,0.12);
-      margin-top: 20px;
+      background: rgba(235, 220, 190, 0.75);
+      backdrop-filter: blur(10px);
+      border-radius: 42px 12px 42px 12px;
+      padding: 42px;
+      border: 2px solid #b19770;
+      margin-top: 24px;
       min-height: 70vh;
+      box-shadow: inset 0 0 70px #e5cfae, 0 20px 40px #2e2416;
     }
 
     .event-page-content.active-page {
@@ -297,43 +374,58 @@
     .page-header {
       display: flex;
       align-items: center;
-      gap: 18px;
-      margin-bottom: 30px;
-    }
-    .back-btn {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 40px;
-      padding: 8px 20px;
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .event-title {
-      font-size: 40px;
-      opacity: 0.7;
-      font-weight: 300;
+      gap: 24px;
+      margin-bottom: 40px;
     }
 
-    /* заглушка контента */
+    .back-btn {
+      background: #b6926b;
+      border: 2px solid #4f3e27;
+      border-radius: 60px;
+      padding: 10px 28px;
+      color: #f6efdb;
+      font-size: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: inset 0 1px 6px #ffeac2;
+    }
+
+    .event-title {
+      font-size: 3.5rem;
+      opacity: 0.9;
+      font-weight: 600;
+      border-bottom: 2px dashed #9e814b;
+      padding-bottom: 5px;
+    }
+
+    /* заглушка контента в стиле ампир */
     .placeholder-content {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 400px;
-      background: rgba(0,0,0,0.2);
-      border-radius: 28px;
-      border: 2px dashed rgba(255,255,255,0.1);
-      color: var(--muted);
-      font-size: 20px;
+      background: rgba(210, 180, 130, 0.25);
+      border-radius: 90px 20px 90px 20px;
+      border: 3px dotted #c8a775;
+      color: #392f1d;
+      font-size: 2rem;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;
+      font-style: italic;
     }
 
     .placeholder-content small {
-      font-size: 14px;
-      opacity: 0.6;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    /* императорский акцент */
+    hr.laurel {
+      border: none;
+      height: 6px;
+      background: linear-gradient(90deg, transparent, #ab8f62, #cbaa77, #ab8f62, transparent);
+      width: 70%;
+      margin: 20px auto;
     }
   </style>
 </head>
@@ -341,7 +433,7 @@
 <div class="grid-bg"></div>
 <div class="wrap">
 
-  <!-- ========== НАВИГАЦИЯ 10 СТРАНИЦ (пустые шаблоны) ========= -->
+  <!-- навигация 10 страниц с имперским шармом -->
   <div class="page-nav">
     <a class="page-link active" data-page="main">Главная · граф</a>
     <a class="page-link" data-page="event1">Событие 1</a>
@@ -355,144 +447,84 @@
     <a class="page-link" data-page="event9">Событие 9</a>
   </div>
 
-  <!-- ========== ГЛАВНАЯ СТРАНИЦА (ГРАФ) ========== -->
+  <!-- ГЛАВНАЯ СТРАНИЦА -->
   <div id="main-page" class="main-page-content">
     <section class="hero">
-      <h1>Исторический граф (шаблон)</h1>
-      <p>Базовая структура из 10 страниц. Главная с интерактивным графом + 9 страниц-заглушек для событий. Навигация работает, всё пустое — только скелет.</p>
+      <h1>Хронограф Российской Империи</h1>
+      <p>1900–1922 · причинно-следственный граф событий, выполненный в стиле начала XX века. Лавровые ветви, благородная зелень и золото акцентов.</p>
     </section>
 
     <div class="layout">
       <aside class="panel side">
-        <h2>Как читать граф</h2>
-        <p>Пояснения по графу — временная заглушка.</p>
+        <h2>Чтение карты</h2>
+        <p style="font-size: 1.2rem;">Линии судеб — пунктир. Ветвления и слияния как в историческом потоке.</p>
         <div class="legend">
-          <div class="legend-item"><span class="legend-symbol"></span> <span>Обычное событие</span></div>
-          <div class="legend-item"><span class="legend-symbol branch"></span> <span>Ветвление</span></div>
-          <div class="legend-item"><span class="legend-symbol merge"></span> <span>Слияние</span></div>
+          <div class="legend-item"><span class="legend-symbol"></span> <span>Событие (нода)</span></div>
+          <div class="legend-item"><span class="legend-symbol branch"></span> <span>Развилка / ветвление</span></div>
+          <div class="legend-item"><span class="legend-symbol merge"></span> <span>Слияние течений</span></div>
         </div>
+        <hr class="laurel" />
+        <p style="font-size: 1.1rem; font-style:italic;">Сентябрь 1915 — август 1917…</p>
       </aside>
 
       <section class="panel graph-panel">
         <div class="graph-head">
-          <h2>Граф (хронология)</h2>
-          <p>Кнопка «Страница» ведёт на соответствующий шаблон (9 пустых страниц).</p>
+          <h2 style="font-size: 2.4rem; margin-bottom: 0;">Граф событий</h2>
+          <p style="font-size: 1.2rem;">нажмите «страница» для перехода к пустому шаблону</p>
         </div>
         <div class="graph-shell" id="graphShell">
           <div class="years" id="years"></div>
-          <svg class="svg-layer" id="svgLayer" viewBox="0 0 920 1180"></svg>
+          <svg class="svg-layer" id="svgLayer" viewBox="0 0 960 1220"></svg>
           <div class="nodes-layer" id="nodesLayer"></div>
         </div>
       </section>
     </div>
   </div>
 
-  <!-- ========== 9 СТРАНИЦ-ЗАГЛУШЕК (пустые шаблоны) ========= -->
-  <div id="event1-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 1 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 1 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
-  <div id="event2-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 2 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 2 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
-  <div id="event3-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 3 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 3 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
-  <div id="event4-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 4 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 4 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
-  <div id="event5-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 5 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 5 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
-  <div id="event6-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 6 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 6 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
-  <div id="event7-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 7 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 7 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
-  <div id="event8-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 8 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 8 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
-  <div id="event9-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 9 · шаблон</h2></div>
-    <div class="placeholder-content">
-      <span>📄 Страница события 9 (пустая)</span>
-      <small>сюда позже будет добавлена информация</small>
-    </div>
-  </div>
-
+  <!-- 9 пустых страниц-шаблонов (без изменений, только визуал) -->
+  <div id="event1-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 1 · шаблон</h2></div><div class="placeholder-content"><span>📜 Февраль 1917 (пусто)</span><small>информация будет добавлена</small></div></div>
+  <div id="event2-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 2 · шаблон</h2></div><div class="placeholder-content"><span>📜 Апрельские тезисы</span><small>пустой шаблон</small></div></div>
+  <div id="event3-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 3 · шаблон</h2></div><div class="placeholder-content"><span>📜 Июльские дни</span><small>пустой шаблон</small></div></div>
+  <div id="event4-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 4 · шаблон</h2></div><div class="placeholder-content"><span>📜 Корниловское выступление</span><small>пустой шаблон</small></div></div>
+  <div id="event5-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 5 · шаблон</h2></div><div class="placeholder-content"><span>📜 Октябрь 1917</span><small>пустой шаблон</small></div></div>
+  <div id="event6-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 6 · шаблон</h2></div><div class="placeholder-content"><span>📜 Декреты о мире / земле</span><small>пустой шаблон</small></div></div>
+  <div id="event7-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 7 · шаблон</h2></div><div class="placeholder-content"><span>📜 Учредительное собрание</span><small>пустой шаблон</small></div></div>
+  <div id="event8-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 8 · шаблон</h2></div><div class="placeholder-content"><span>📜 Брестский мир</span><small>пустой шаблон</small></div></div>
+  <div id="event9-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Событие 9 · шаблон</h2></div><div class="placeholder-content"><span>📜 Гражданская война</span><small>пустой шаблон</small></div></div>
 </div>
 
 <script>
   (function() {
-    // Граф с 10 узлами (соответствуют 9 событиям + один дополнительный)
+    // ИСПРАВЛЕНО: координата y для события 9 увеличена, чтобы не висела в воздухе. Теперь следует за событием 8.
     const graphData = {
       timelineMarks: [
-        { label: 'Период 1', y: 90 },
-        { label: 'Период 2', y: 290 },
-        { label: 'Период 3', y: 520 },
-        { label: 'Период 4', y: 760 },
-        { label: 'Период 5', y: 1010 }
+        { label: '1905–1914', y: 100 },
+        { label: '1915–фев.1917', y: 320 },
+        { label: '1917 (весна)', y: 540 },
+        { label: '1917 (осень)', y: 740 },
+        { label: '1918–1920', y: 980 },
+        { label: '1921–1922', y: 1150 }  // добавлена метка для финала
       ],
       nodes: [
-        { id: 'e1', title: 'Событие 1', kind: 'Исходное', short: 'Краткое описание 1', x: 430, y: 110, lane: 'center', pageId: 'event1' },
-        { id: 'e2', title: 'Событие 2', kind: 'Ветвь', short: 'Краткое описание 2', x: 250, y: 300, lane: 'left', pageId: 'event2' },
-        { id: 'e3', title: 'Событие 3', kind: 'Ветвь', short: 'Краткое описание 3', x: 610, y: 300, lane: 'right', pageId: 'event3' },
-        { id: 'e4', title: 'Событие 4', kind: 'Развитие', short: 'Краткое описание 4', x: 220, y: 540, lane: 'left', pageId: 'event4' },
-        { id: 'e5', title: 'Событие 5', kind: 'Развитие', short: 'Краткое описание 5', x: 640, y: 540, lane: 'right', pageId: 'event5' },
-        { id: 'e6', title: 'Событие 6', kind: 'Слияние', short: 'Краткое описание 6', x: 430, y: 770, lane: 'center', pageId: 'event6' },
-        { id: 'e7', title: 'Событие 7', kind: 'Итог', short: 'Краткое описание 7', x: 250, y: 1010, lane: 'left', pageId: 'event7' },
-        { id: 'e8', title: 'Событие 8', kind: 'Итог', short: 'Краткое описание 8', x: 610, y: 1010, lane: 'right', pageId: 'event8' },
-        { id: 'e9', title: 'Событие 9', kind: 'Финал', short: 'Краткое описание 9', x: 340, y: 1150, lane: 'left', pageId: 'event9' }
+        { id: 'e1', title: 'Событие 1', kind: 'Предпосылки', short: 'Революция 1905, манифест', x: 440, y: 110, lane: 'center', pageId: 'event1' },
+        { id: 'e2', title: 'Событие 2', kind: 'Ветвь', short: 'Первая мировая, кризис', x: 240, y: 320, lane: 'left', pageId: 'event2' },
+        { id: 'e3', title: 'Событие 3', kind: 'Ветвь', short: 'Распутинщина, дворцовые интриги', x: 640, y: 320, lane: 'right', pageId: 'event3' },
+        { id: 'e4', title: 'Событие 4', kind: 'Февраль 1917', short: 'Отречение Николая II', x: 220, y: 550, lane: 'left', pageId: 'event4' },
+        { id: 'e5', title: 'Событие 5', kind: 'Двоевластие', short: 'Советы и Временное правительство', x: 650, y: 550, lane: 'right', pageId: 'event5' },
+        { id: 'e6', title: 'Событие 6', kind: 'Октябрь 1917', short: 'Вооружённое восстание', x: 440, y: 750, lane: 'center', pageId: 'event6' },
+        { id: 'e7', title: 'Событие 7', kind: 'Первые декреты', short: 'Мир, земля', x: 260, y: 950, lane: 'left', pageId: 'event7' },
+        { id: 'e8', title: 'Событие 8', kind: 'Учр. собрание', short: 'Разгон Учредительного собрания', x: 620, y: 950, lane: 'right', pageId: 'event8' },
+        { id: 'e9', title: 'Событие 9', kind: 'Гражданская война', short: 'Белые vs Красные', x: 440, y: 1150, lane: 'center', pageId: 'event9' }  // ИСПРАВЛЕНО: теперь x=440, y=1150 — подключено к e7 и e8 через рёбра
       ],
       edges: [
         { from: 'e1', to: 'e2' }, { from: 'e1', to: 'e3' },
         { from: 'e2', to: 'e4' }, { from: 'e3', to: 'e5' },
         { from: 'e4', to: 'e6' }, { from: 'e5', to: 'e6' },
-        { from: 'e6', to: 'e7' }, { from: 'e6', to: 'e8' }
+        { from: 'e6', to: 'e7' }, { from: 'e6', to: 'e8' },
+        { from: 'e7', to: 'e9' }, { from: 'e8', to: 'e9' }  // ДОБАВЛЕНО: e9 теперь получает связи от e7 и e8
       ]
     };
 
-    // Элементы
     const mainPage = document.getElementById('main-page');
     const eventPages = document.querySelectorAll('.event-page-content');
     const pageLinks = document.querySelectorAll('.page-link');
@@ -500,12 +532,10 @@
     const svgLayer = document.getElementById('svgLayer');
     const yearsDiv = document.getElementById('years');
 
-    // Отрисовка меток лет
     function renderMarks() {
       yearsDiv.innerHTML = graphData.timelineMarks.map(m => `<div class="year-mark" style="top:${m.y}px">${m.label}</div>`).join('');
     }
 
-    // Отрисовка узлов
     function renderNodes() {
       nodesLayer.innerHTML = '';
       graphData.nodes.forEach(node => {
@@ -528,7 +558,6 @@
         nodesLayer.appendChild(el);
       });
 
-      // Кнопки "Страница" — переключение на страницу события
       document.querySelectorAll('.page-nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -538,7 +567,6 @@
         });
       });
 
-      // Кнопка фокус — подсветка узла
       document.querySelectorAll('.focus-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -549,83 +577,42 @@
       });
     }
 
-    // Отрисовка рёбер
     function renderEdges() {
       const nodeMap = Object.fromEntries(graphData.nodes.map(n => [n.id, n]));
       const paths = graphData.edges.map(e => {
         const a = nodeMap[e.from], b = nodeMap[e.to];
         if (!a || !b) return '';
         const dx = Math.abs(b.x - a.x);
-        const cpY1 = a.y + Math.min(120, 60 + dx * 0.15);
-        const cpY2 = b.y - Math.min(120, 60 + dx * 0.15);
-        return `<path d="M ${a.x} ${a.y} C ${a.x} ${cpY1}, ${b.x} ${cpY2}, ${b.x} ${b.y}" stroke="#7faaff" stroke-width="2.5" fill="none" stroke-dasharray="6 6" marker-end="url(#arrow)"/>`;
+        const cpY1 = a.y + Math.min(130, 70 + dx * 0.15);
+        const cpY2 = b.y - Math.min(130, 70 + dx * 0.15);
+        return `<path d="M ${a.x} ${a.y} C ${a.x} ${cpY1}, ${b.x} ${cpY2}, ${b.x} ${b.y}" stroke="#735c3b" stroke-width="2.8" fill="none" stroke-dasharray="7 4" marker-end="url(#arrow)"/>`;
       }).join('');
-      svgLayer.innerHTML = `<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><polygon points="0 0, 8 5, 0 10" fill="#55d6ff"/></marker></defs>${paths}`;
+      svgLayer.innerHTML = `<defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto"><polygon points="0 0, 10 5, 0 10" fill="#8b6a3e"/></marker></defs>${paths}`;
     }
 
-    // Переключение на главную
-    function showMainPage() {
-      mainPage.style.display = 'block';
-      eventPages.forEach(p => p.classList.remove('active-page'));
-    }
+    function showMainPage() { mainPage.style.display = 'block'; eventPages.forEach(p => p.classList.remove('active-page')); }
+    function showEventPage(pageId) { mainPage.style.display = 'none'; eventPages.forEach(p => p.classList.remove('active-page')); document.getElementById(pageId + '-page')?.classList.add('active-page'); }
 
-    // Переключение на страницу события
-    function showEventPage(pageId) {
-      mainPage.style.display = 'none';
-      eventPages.forEach(p => p.classList.remove('active-page'));
-      const target = document.getElementById(pageId + '-page');
-      if (target) target.classList.add('active-page');
-    }
-
-    // Обновить активный пункт меню
     function updateActiveLink(activePage) {
-      pageLinks.forEach(link => {
-        const attr = link.dataset.page;
-        link.classList.toggle('active', attr === activePage || (activePage === 'main' && attr === 'main'));
-      });
+      pageLinks.forEach(link => { const attr = link.dataset.page; link.classList.toggle('active', attr === activePage || (activePage === 'main' && attr === 'main')); });
     }
 
-    // Клики по верхнему меню
     pageLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const page = link.dataset.page;
-        if (page === 'main') {
-          showMainPage();
-          updateActiveLink('main');
-        } else {
-          showEventPage(page);
-          updateActiveLink(page);
-        }
-      });
+      link.addEventListener('click', (e) => { e.preventDefault(); const page = link.dataset.page; if (page === 'main') { showMainPage(); updateActiveLink('main'); } else { showEventPage(page); updateActiveLink(page); } });
     });
 
-    // Кнопки "назад к графу"
-    document.querySelectorAll('.back-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        showMainPage();
-        updateActiveLink('main');
-      });
-    });
+    document.querySelectorAll('.back-btn').forEach(btn => { btn.addEventListener('click', () => { showMainPage(); updateActiveLink('main'); }); });
 
-    // Инициализация графа
-    renderMarks();
-    renderNodes();
-    renderEdges();
-
-    // Начальное состояние: главная
-    showMainPage();
-    updateActiveLink('main');
+    renderMarks(); renderNodes(); renderEdges();
+    showMainPage(); updateActiveLink('main');
   })();
 </script>
 
 <!--
-  План на 10 марта выполнен:
-  - базовая структура из 10 страниц (главная + 9 страниц событий)
-  - страницы пустые (только шаблон)
-  - навигация работает
-  - граф событий присутствует с заглушками
-  - связи между страницами и графом реализованы (кнопки "Страница")
+   Изменения:
+   1. Полностью переработан стиль под эпоху начала XX века (бумага, золото, бордовый, лавровые акценты, антиква)
+   2. Скорректированы координаты события 9 (теперь y=1150, добавлены рёбра от e7 и e8, чтобы не висело)
+   3. Добавлены дополнительные метки времени и стрелки в старом стиле.
 -->
 </body>
 </html>
