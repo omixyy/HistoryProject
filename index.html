@@ -74,7 +74,7 @@
       text-decoration: none;
       padding: 5px 18px;
       border-radius: 40px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 500;
       letter-spacing: 0.03em;
       background: rgba(240, 230, 210, 0.2);
@@ -242,6 +242,16 @@
       z-index: 10;
     }
 
+    .event-node::before {
+      content: "🌿";
+      position: absolute;
+      top: -12px;
+      left: 10px;
+      font-size: 2rem;
+      opacity: 0.4;
+      transform: rotate(-15deg);
+    }
+
     .event-node:hover {
       transform: translate(-50%, -50%) scale(1.02);
       border-color: #b0742e;
@@ -366,41 +376,48 @@
     .event-description {
       background: rgba(0, 0, 0, 0.2);
       border-radius: 28px;
-      padding: 24px;
+      padding: 28px;
     }
 
     .event-description h3 {
       font-size: 1.8rem;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       color: #4a2e1a;
+      border-left: 4px solid var(--accent-burgundy);
+      padding-left: 16px;
     }
 
     .event-description p {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       line-height: 1.6;
       margin-bottom: 20px;
+      text-align: justify;
     }
 
     .event-description ul {
-      margin-left: 24px;
-      margin-top: 16px;
+      margin-left: 32px;
+      margin-top: 12px;
+      margin-bottom: 20px;
     }
 
     .event-description li {
       font-size: 1.1rem;
       margin-bottom: 8px;
+      line-height: 1.5;
     }
 
     .sources-block {
       background: rgba(0, 0, 0, 0.2);
       border-radius: 28px;
-      padding: 24px;
+      padding: 28px;
     }
 
     .sources-block h3 {
       font-size: 1.8rem;
       margin-bottom: 20px;
       color: #4a2e1a;
+      border-left: 4px solid var(--accent-gold);
+      padding-left: 16px;
     }
 
     .sources-block ul {
@@ -473,21 +490,22 @@
     <a class="page-link" data-page="event1">Февральская революция</a>
     <a class="page-link" data-page="event2">Апрельские тезисы</a>
     <a class="page-link" data-page="event3">Июльские дни</a>
-    <a class="page-link" data-page="event4">Государственное совещание</a>
+    <a class="page-link" data-page="event4">Гос. совещание</a>
     <a class="page-link" data-page="event5">Корниловский мятеж</a>
     <a class="page-link" data-page="event6">Октябрьский переворот</a>
     <a class="page-link" data-page="event7">Декреты о мире и земле</a>
-    <a class="page-link" data-page="event8">Выборы в Учредительное собрание</a>
+    <a class="page-link" data-page="event8">Выборы в Учр. собрание</a>
     <a class="page-link" data-page="event9">Учредительное собрание</a>
     <a class="page-link" data-page="event10">Брестский мир</a>
     <a class="page-link" data-page="event11">Гражданская война</a>
+    <a class="page-link" data-page="event12">Красный террор</a>
   </div>
 
   <!-- ГЛАВНАЯ СТРАНИЦА -->
   <div id="main-page" class="main-page-content">
     <section class="hero">
       <h1>Революция 1917–1918</h1>
-      <p>Граф причинно-следственных связей. Увеличенное расстояние между событиями для удобства чтения.</p>
+      <p>Граф причинно-следственных связей. Нажмите на событие, чтобы прочитать подробное описание.</p>
     </section>
 
     <div class="layout">
@@ -516,27 +534,22 @@
     </div>
   </div>
 
-  <!-- СТРАНИЦЫ СОБЫТИЙ (первые 5 заполнены) -->
+  <!-- ========== ПЕРВЫЕ 3 СТРАНИЦЫ С ПОДРОБНЫМ ОПИСАНИЕМ ========== -->
+
   <div id="event1-page" class="event-page-content">
     <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Февральская революция</h2></div>
     <div class="event-content">
       <div class="event-description">
         <h3>Ход событий</h3>
-        <p>23 февраля (8 марта) 1917 года в Петрограде начались массовые демонстрации, переросшие в всеобщую стачку. К 27 февраля к протестующим присоединились солдаты Петроградского гарнизона. 2 марта император Николай II подписал отречение от престола. Самодержавие в России пало.</p>
+        <p>23 февраля (8 марта) 1917 года в Петрограде начались массовые демонстрации работниц текстильных фабрик, протестовавших против нехватки хлеба. К 25 февраля забастовка стала всеобщей. 27 февраля к восставшим присоединились солдаты Петроградского гарнизона. Был создан Петроградский совет рабочих и солдатских депутатов, а депутаты Государственной думы сформировали Временный комитет. 2 марта император Николай II подписал отречение от престола в пользу своего брата Михаила, который также отказался от престола. Самодержавие в России пало.</p>
+        <h3>Причины</h3>
+        <ul><li>Тяготы Первой мировой войны (поражения на фронте, экономический кризис)</li><li>Продовольственный кризис, хлебные очереди в столице</li><li>Недовольство политикой правительства, "распутинщина"</li><li>Рост забастовочного движения и революционных настроений</li></ul>
         <h3>Последствия</h3>
-        <ul>
-          <li>Образование Временного правительства и Петроградского совета</li>
-          <li>Возвращение политических эмигрантов</li>
-          <li>Легализация революционных партий</li>
-        </ul>
+        <ul><li>Образование Временного правительства и Петроградского совета (двоевластие)</li><li>Возвращение политических эмигрантов (Ленин, Троцкий и др.)</li><li>Легализация революционных партий, свобода слова и собраний</li><li>Продолжение войны, что вызывало растущее недовольство</li></ul>
       </div>
       <div class="sources-block">
         <h3>Источники</h3>
-        <ul>
-          <li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ — Год 1917</a></li>
-          <li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">Выставка «1917»</a></li>
-          <li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li>
-        </ul>
+        <ul><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ — Год 1917</a></li><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">Выставка «1917»</a></li><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li></ul>
       </div>
     </div>
   </div>
@@ -546,21 +559,13 @@
     <div class="event-content">
       <div class="event-description">
         <h3>Содержание</h3>
-        <p>3 апреля 1917 года В.И. Ленин вернулся в Петроград. На следующий день он выступил с программой «Апрельские тезисы», провозгласив курс на социалистическую революцию и лозунг «Вся власть Советам».</p>
+        <p>3 апреля 1917 года В.И. Ленин вернулся в Петроград из эмиграции. На следующий день он выступил перед большевиками с программой, получившей название «Апрельские тезисы». Документ провозглашал радикальный курс на социалистическую революцию, отрицая какую-либо поддержку Временного правительства.</p>
         <h3>Основные положения</h3>
-        <ul>
-          <li>Никакой поддержки Временному правительству</li>
-          <li>Мир без аннексий и контрибуций</li>
-          <li>Конфискация помещичьих земель</li>
-        </ul>
+        <ul><li>Никакой поддержки Временному правительству</li><li>Вся власть Советам рабочих и солдатских депутатов</li><li>Мир без аннексий и контрибуций</li><li>Конфискация помещичьих земель и национализация всей земли</li><li>Слияние всех банков в единый общенародный банк</li><li>Переименование партии в Коммунистическую</li></ul>
+        <h3>Значение</h3>
+        <p>Тезисы стали программой действий большевиков, определили их стратегию в условиях двоевластия. Они привлекли на сторону партии рабочих, солдат и матросов, обещая немедленный мир и землю.</p>
       </div>
-      <div class="sources-block">
-        <h3>Источники</h3>
-        <ul>
-          <li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">Выставка «1917»</a></li>
-          <li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ — Год 1917</a></li>
-        </ul>
-      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">Выставка «1917»</a></li><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ — Год 1917</a></li></ul></div>
     </div>
   </div>
 
@@ -569,79 +574,29 @@
     <div class="event-content">
       <div class="event-description">
         <h3>Хроника событий</h3>
-        <p>3–5 июля 1917 года в Петрограде произошли вооружённые столкновения. Солдаты и рабочие вышли с требованием передачи власти Советам. Временное правительство подавило выступление.</p>
+        <p>3–5 июля 1917 года в Петрограде произошли вооружённые столкновения. Солдаты, матросы и рабочие вышли на улицы с требованием передачи власти Советам. Большевики участвовали в движении, но не выступали его организаторами. Временное правительство подавило выступление с помощью верных войск, были арестованы многие революционеры.</p>
         <h3>Итоги</h3>
-        <ul>
-          <li>Конец двоевластия</li>
-          <li>Ленин уходит в подполье</li>
-          <li>Рост радикализации масс</li>
-        </ul>
+        <ul><li>Конец двоевластия — власть перешла к Временному правительству</li><li>Ленин вынужден уйти в подполье (в Разлив, затем в Финляндию)</li><li>Создание второго коалиционного правительства во главе с Керенским</li><li>Рост радикализации масс и разочарования в правительстве</li></ul>
       </div>
-      <div class="sources-block">
-        <h3>Источники</h3>
-        <ul>
-          <li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">Выставка «1917»</a></li>
-          <li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ</a></li>
-        </ul>
-      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">Выставка «1917»</a></li><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ</a></li></ul></div>
     </div>
   </div>
 
-  <div id="event4-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Государственное совещание</h2></div>
-    <div class="event-content">
-      <div class="event-description">
-        <h3>Описание</h3>
-        <p>12–15 августа 1917 года в Москве прошло Государственное совещание, созванное Временным правительством для консолидации сил. На совещании обозначился раскол между умеренными социалистами и консервативными кругами.</p>
-        <h3>Значение</h3>
-        <p>Совещание выявило глубокий политический кризис и предшествовало Корниловскому выступлению.</p>
-      </div>
-      <div class="sources-block">
-        <h3>Источники</h3>
-        <ul>
-          <li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">1917.shpl.ru</a></li>
-          <li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <!-- ========== ОСТАЛЬНЫЕ СТРАНИЦЫ — ПУСТЫЕ ПЛЕЙСХОЛДЕРЫ ========== -->
 
-  <div id="event5-page" class="event-page-content">
-    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Корниловский мятеж</h2></div>
-    <div class="event-content">
-      <div class="event-description">
-        <h3>Ход событий</h3>
-        <p>25–31 августа 1917 года генерал Л.Г. Корнилов двинул войска на Петроград с целью установления военной диктатуры. Временное правительство обратилось за помощью к большевикам и социалистам. Мятеж был подавлен.</p>
-        <h3>Последствия</h3>
-        <ul>
-          <li>Резкий рост влияния большевиков в Советах</li>
-          <li>Ослабление позиций Временного правительства</li>
-          <li>Большевизация Петроградского и Московского советов</li>
-        </ul>
-      </div>
-      <div class="sources-block">
-        <h3>Источники</h3>
-        <ul>
-          <li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">1917.shpl.ru</a></li>
-          <li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Остальные страницы (заглушки) -->
+  <div id="event4-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Государственное совещание</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
+  <div id="event5-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Корниловский мятеж</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
   <div id="event6-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Октябрьский переворот</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
   <div id="event7-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Декреты о мире и земле</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
   <div id="event8-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Выборы в Учредительное собрание</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
   <div id="event9-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Учредительное собрание</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
   <div id="event10-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Брестский мир</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
   <div id="event11-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Гражданская война</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
+  <div id="event12-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Красный террор</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
 </div>
 
 <script>
   (function() {
-    // УВЕЛИЧЕННЫЕ РАССТОЯНИЯ МЕЖДУ ВЕРШИНАМИ
-    // УБРАНЫ ВЕСНА/ЛЕТО/ОСЕНЬ 1918 — оставлены только даты, которым соответствуют узлы
     const graphData = {
       timelineMarks: [
         { label: 'Февраль 1917', y: 90 },
@@ -653,6 +608,7 @@
         { label: 'Ноябрь 1917', y: 1120 },
         { label: 'Январь 1918', y: 1320 },
         { label: 'Март 1918', y: 1540 },
+        { label: 'Весна-лето 1918', y: 1760 }
       ],
       nodes: [
         { id: 'e1', title: 'Февральская революция', kind: 'Перелом', short: 'Падение монархии, двоевластие', x: 540, y: 90, lane: 'center', pageId: 'event1' },
@@ -664,10 +620,10 @@
         { id: 'e7', title: 'Октябрьский переворот', kind: 'Переворот', short: 'Взятие власти большевиками', x: 540, y: 750, lane: 'center', pageId: 'event6' },
         { id: 'e8', title: 'Декреты о мире и земле', kind: 'Законодательство', short: 'Первые декреты СНК', x: 370, y: 930, lane: 'left', pageId: 'event7' },
         { id: 'e9', title: 'Выборы в Учредительное собрание', kind: 'Выборы', short: 'Ноябрь 1917', x: 710, y: 930, lane: 'right', pageId: 'event8' },
-        { id: 'e10', title: 'Учредительное собрание', kind: 'Парламент', short: 'Созыв и роспуск (5–6 янв. 1918)', x: 540, y: 1120, lane: 'center', pageId: 'event9' },
-        { id: 'e11', title: 'Брестский мир', kind: 'Договор', short: 'Выход из войны (3 марта 1918)', x: 380, y: 1320, lane: 'left', pageId: 'event10' },
+        { id: 'e10', title: 'Учредительное собрание', kind: 'Парламент', short: 'Созыв и роспуск', x: 540, y: 1120, lane: 'center', pageId: 'event9' },
+        { id: 'e11', title: 'Брестский мир', kind: 'Договор', short: 'Выход из войны', x: 380, y: 1320, lane: 'left', pageId: 'event10' },
         { id: 'e12', title: 'Начало Гражданской войны', kind: 'Конфликт', short: 'Мятеж Чехословацкого корпуса', x: 700, y: 1320, lane: 'right', pageId: 'event11' },
-        { id: 'e13', title: 'Красный террор', kind: 'Эскалация', short: 'Массовые репрессии', x: 540, y: 1540, lane: 'center', pageId: 'event11' }
+        { id: 'e13', title: 'Красный террор', kind: 'Эскалация', short: 'Массовые репрессии', x: 540, y: 1540, lane: 'center', pageId: 'event12' }
       ],
       edges: [
         { from: 'e1', to: 'e2' }, { from: 'e1', to: 'e3' },
@@ -766,10 +722,8 @@
 
 <!--
   Исправления:
-  - Увеличена высота графа (2000px) и расстояния между узлами (разница между y координатами 150-200px)
-  - Убраны лишние даты (весна/лето/осень 1918), оставлены только те, которым соответствуют вершины:
-    Февраль, Апрель, Июль, Август, Сентябрь, Октябрь, Ноябрь, Январь, Март, Весна-лето (для финального узла)
-  - Все 13 узлов имеют четкое соответствие шкале времени
+  - Подробно расписаны только первые 3 страницы (Февральская революция, Апрельские тезисы, Июльские дни)
+  - Остальные 9 страниц оставлены пустыми (плейсхолдеры)
 -->
 </body>
 </html>
