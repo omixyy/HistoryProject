@@ -74,7 +74,7 @@
       text-decoration: none;
       padding: 5px 18px;
       border-radius: 40px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
       letter-spacing: 0.03em;
       background: rgba(240, 230, 210, 0.2);
@@ -347,6 +347,8 @@
       gap: 24px;
       margin-bottom: 40px;
       flex-wrap: wrap;
+      border-bottom: 2px solid var(--accent-gold);
+      padding-bottom: 20px;
     }
 
     .back-btn {
@@ -358,13 +360,19 @@
       font-size: 1.25rem;
       font-weight: 600;
       cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #9a7b58;
+      transform: translateX(-4px);
     }
 
     .event-title {
       font-size: 2.8rem;
       font-weight: 600;
-      border-bottom: 2px dashed #9e814b;
-      padding-bottom: 5px;
+      color: #2a1f0f;
+      letter-spacing: 0.02em;
     }
 
     .event-content {
@@ -377,6 +385,11 @@
       background: rgba(0, 0, 0, 0.2);
       border-radius: 28px;
       padding: 28px;
+      transition: 0.2s;
+    }
+
+    .event-description:hover {
+      background: rgba(0, 0, 0, 0.25);
     }
 
     .event-description h3 {
@@ -410,6 +423,11 @@
       background: rgba(0, 0, 0, 0.2);
       border-radius: 28px;
       padding: 28px;
+      transition: 0.2s;
+    }
+
+    .sources-block:hover {
+      background: rgba(0, 0, 0, 0.25);
     }
 
     .sources-block h3 {
@@ -443,26 +461,6 @@
       text-decoration: underline;
     }
 
-    .placeholder-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 400px;
-      background: rgba(210, 180, 130, 0.25);
-      border-radius: 90px 20px 90px 20px;
-      border: 3px dotted #c8a775;
-      color: #392f1d;
-      font-size: 2rem;
-      flex-direction: column;
-      gap: 20px;
-      font-style: italic;
-    }
-
-    .placeholder-content small {
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
-
     hr.laurel {
       border: none;
       height: 6px;
@@ -477,6 +475,10 @@
       }
       .layout {
         grid-template-columns: 1fr;
+      }
+      .page-link {
+        font-size: 0.8rem;
+        padding: 4px 12px;
       }
     }
   </style>
@@ -534,26 +536,25 @@
     </div>
   </div>
 
-  <!-- ========== ПЕРВЫЕ 3 СТРАНИЦЫ С ПОДРОБНЫМ ОПИСАНИЕМ ========== -->
+  <!-- ========== ВСЕ СТРАНИЦЫ С ПОДРОБНЫМ ОПИСАНИЕМ ========== -->
 
+  <!-- 1. Февральская революция -->
   <div id="event1-page" class="event-page-content">
     <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Февральская революция</h2></div>
     <div class="event-content">
       <div class="event-description">
         <h3>Ход событий</h3>
-        <p>23 февраля (8 марта) 1917 года в Петрограде начались массовые демонстрации работниц текстильных фабрик, протестовавших против нехватки хлеба. К 25 февраля забастовка стала всеобщей. 27 февраля к восставшим присоединились солдаты Петроградского гарнизона. Был создан Петроградский совет рабочих и солдатских депутатов, а депутаты Государственной думы сформировали Временный комитет. 2 марта император Николай II подписал отречение от престола в пользу своего брата Михаила, который также отказался от престола. Самодержавие в России пало.</p>
+        <p>23 февраля (8 марта) 1917 года в Петрограде начались массовые демонстрации работниц текстильных фабрик, протестовавших против нехватки хлеба. К 25 февраля забастовка стала всеобщей. 27 февраля к восставшим присоединились солдаты Петроградского гарнизона. Был создан Петроградский совет рабочих и солдатских депутатов, а депутаты Государственной думы сформировали Временный комитет. 2 марта император Николай II подписал отречение от престола. Самодержавие в России пало.</p>
         <h3>Причины</h3>
         <ul><li>Тяготы Первой мировой войны (поражения на фронте, экономический кризис)</li><li>Продовольственный кризис, хлебные очереди в столице</li><li>Недовольство политикой правительства, "распутинщина"</li><li>Рост забастовочного движения и революционных настроений</li></ul>
         <h3>Последствия</h3>
-        <ul><li>Образование Временного правительства и Петроградского совета (двоевластие)</li><li>Возвращение политических эмигрантов (Ленин, Троцкий и др.)</li><li>Легализация революционных партий, свобода слова и собраний</li><li>Продолжение войны, что вызывало растущее недовольство</li></ul>
+        <ul><li>Образование Временного правительства и Петроградского совета (двоевластие)</li><li>Возвращение политических эмигрантов (Ленин, Троцкий и др.)</li><li>Легализация революционных партий, свобода слова и собраний</li></ul>
       </div>
-      <div class="sources-block">
-        <h3>Источники</h3>
-        <ul><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ — Год 1917</a></li><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">Выставка «1917»</a></li><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li></ul>
-      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ — Год 1917</a></li><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">Выставка «1917»</a></li><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li></ul></div>
     </div>
   </div>
 
+  <!-- 2. Апрельские тезисы -->
   <div id="event2-page" class="event-page-content">
     <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Апрельские тезисы</h2></div>
     <div class="event-content">
@@ -561,7 +562,7 @@
         <h3>Содержание</h3>
         <p>3 апреля 1917 года В.И. Ленин вернулся в Петроград из эмиграции. На следующий день он выступил перед большевиками с программой, получившей название «Апрельские тезисы». Документ провозглашал радикальный курс на социалистическую революцию, отрицая какую-либо поддержку Временного правительства.</p>
         <h3>Основные положения</h3>
-        <ul><li>Никакой поддержки Временному правительству</li><li>Вся власть Советам рабочих и солдатских депутатов</li><li>Мир без аннексий и контрибуций</li><li>Конфискация помещичьих земель и национализация всей земли</li><li>Слияние всех банков в единый общенародный банк</li><li>Переименование партии в Коммунистическую</li></ul>
+        <ul><li>Никакой поддержки Временному правительству</li><li>Вся власть Советам рабочих и солдатских депутатов</li><li>Мир без аннексий и контрибуций</li><li>Конфискация помещичьих земель и национализация всей земли</li><li>Слияние всех банков в единый общенародный банк</li></ul>
         <h3>Значение</h3>
         <p>Тезисы стали программой действий большевиков, определили их стратегию в условиях двоевластия. Они привлекли на сторону партии рабочих, солдат и матросов, обещая немедленный мир и землю.</p>
       </div>
@@ -569,12 +570,13 @@
     </div>
   </div>
 
+  <!-- 3. Июльские дни -->
   <div id="event3-page" class="event-page-content">
     <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Июльские дни</h2></div>
     <div class="event-content">
       <div class="event-description">
         <h3>Хроника событий</h3>
-        <p>3–5 июля 1917 года в Петрограде произошли вооружённые столкновения. Солдаты, матросы и рабочие вышли на улицы с требованием передачи власти Советам. Большевики участвовали в движении, но не выступали его организаторами. Временное правительство подавило выступление с помощью верных войск, были арестованы многие революционеры.</p>
+        <p>3–5 июля 1917 года в Петрограде произошли вооружённые столкновения. Солдаты, матросы и рабочие вышли на улицы с требованием передачи власти Советам. Временное правительство подавило выступление с помощью верных войск, были арестованы многие революционеры.</p>
         <h3>Итоги</h3>
         <ul><li>Конец двоевластия — власть перешла к Временному правительству</li><li>Ленин вынужден уйти в подполье (в Разлив, затем в Финляндию)</li><li>Создание второго коалиционного правительства во главе с Керенским</li><li>Рост радикализации масс и разочарования в правительстве</li></ul>
       </div>
@@ -582,17 +584,135 @@
     </div>
   </div>
 
-  <!-- ========== ОСТАЛЬНЫЕ СТРАНИЦЫ — ПУСТЫЕ ПЛЕЙСХОЛДЕРЫ ========== -->
+  <!-- 4. Государственное совещание -->
+  <div id="event4-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Государственное совещание</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Описание</h3>
+        <p>12–15 августа 1917 года в Москве, в Большом театре, прошло Государственное совещание, созванное Временным правительством для консолидации сил перед лицом нарастающего хаоса. В совещании участвовали представители всех политических партий, общественных организаций, армии, интеллигенции.</p>
+        <h3>Значение</h3>
+        <p>Совещание выявило глубокий политический кризис и непримиримый раскол между умеренными социалистами и консервативными кругами. Именно здесь генерал Корнилов выступил с требованиями наведения порядка, что предшествовало его мятежу.</p>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">1917.shpl.ru</a></li><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li></ul></div>
+    </div>
+  </div>
 
-  <div id="event4-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Государственное совещание</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
-  <div id="event5-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Корниловский мятеж</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
-  <div id="event6-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Октябрьский переворот</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
-  <div id="event7-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Декреты о мире и земле</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
-  <div id="event8-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Выборы в Учредительное собрание</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
-  <div id="event9-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Учредительное собрание</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
-  <div id="event10-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Брестский мир</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
-  <div id="event11-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Гражданская война</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
-  <div id="event12-page" class="event-page-content"><div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Красный террор</h2></div><div class="placeholder-content"><span>📄 страница готовится</span><small>информация будет добавлена</small></div></div>
+  <!-- 5. Корниловский мятеж -->
+  <div id="event5-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Корниловский мятеж</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Ход событий</h3>
+        <p>25–31 августа 1917 года Верховный главнокомандующий генерал Л.Г. Корнилов двинул войска на Петроград с целью установления военной диктатуры. Временное правительство во главе с Керенским обратилось за помощью к большевикам и социалистам. Железнодорожники блокировали продвижение эшелонов, агитаторы разложили войска Корнилова. Мятеж был подавлен.</p>
+        <h3>Последствия</h3>
+        <ul><li>Резкий рост влияния большевиков в Советах</li><li>Ослабление позиций Временного правительства</li><li>Большевизация Петроградского и Московского советов</li><li>Окончательный раскол в армии</li></ul>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">1917.shpl.ru</a></li><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ</a></li></ul></div>
+    </div>
+  </div>
+
+  <!-- 6. Октябрьский переворот -->
+  <div id="event6-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Октябрьский переворот</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Ход событий</h3>
+        <p>24–25 октября (6–7 ноября) 1917 года по решению ЦК РСДРП(б) в Петрограде началось вооружённое восстание. Красногвардейцы, матросы и солдаты захватили ключевые объекты города. В ночь на 26 октября был взят Зимний дворец, арестовано Временное правительство. Вечером 25 октября открылся II Всероссийский съезд Советов, который принял декреты о мире и земле и сформировал новое правительство — Совнарком во главе с Лениным.</p>
+        <h3>Значение</h3>
+        <p>Власть перешла в руки большевиков. Начался новый этап истории России — установление советской власти.</p>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">1917.shpl.ru</a></li><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ</a></li></ul></div>
+    </div>
+  </div>
+
+  <!-- 7. Декреты о мире и земле -->
+  <div id="event7-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Декреты о мире и земле</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Декрет о мире</h3>
+        <p>Принят 26 октября 1917 года. Провозглашал выход России из войны, предлагал всем воюющим народам и правительствам немедленно начать переговоры о справедливом демократическом мире без аннексий и контрибуций.</p>
+        <h3>Декрет о земле</h3>
+        <p>Принят 26 октября 1917 года. Отменял частную собственность на землю, национализировал помещичьи земли и передавал их в распоряжение крестьянских комитетов и Советов. Земля объявлялась общенародным достоянием.</p>
+        <h3>Значение</h3>
+        <p>Декреты обеспечили большевикам широкую поддержку среди солдат (мир) и крестьян (земля), став основой новой советской государственности.</p>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ</a></li></ul></div>
+    </div>
+  </div>
+
+  <!-- 8. Выборы в Учредительное собрание -->
+  <div id="event8-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Выборы в Учредительное собрание</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Ход выборов</h3>
+        <p>12–14 ноября 1917 года прошли первые в истории России свободные выборы в Учредительное собрание. В выборах участвовало около 60% избирателей. Результаты: эсеры — около 40%, большевики — 23,5%, кадеты — 4,6%, меньшевики — около 3%. Большевики оказались в меньшинстве.</p>
+        <h3>Значение</h3>
+        <p>Выборы показали, что большинство населения не поддерживает большевиков. Это стало причиной последующего конфликта с Учредительным собранием и его роспуска.</p>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">1917.shpl.ru</a></li><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li></ul></div>
+    </div>
+  </div>
+
+  <!-- 9. Учредительное собрание -->
+  <div id="event9-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Учредительное собрание</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Заседание и роспуск</h3>
+        <p>5 января 1918 года в Петрограде открылось Учредительное собрание. Большевики предложили утвердить «Декларацию прав трудящегося и эксплуатируемого народа», но большинство отказалось. В ночь на 6 января ВЦИК принял декрет о роспуске собрания. Демонстрации в поддержку Учредительного собрания были разогнаны.</p>
+        <h3>Последствия</h3>
+        <p>Роспуск Учредительного собрания означал окончательный отказ большевиков от парламентской демократии и переход к однопартийной диктатуре. Это усилило гражданское противостояние в стране.</p>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">1917.shpl.ru</a></li><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li></ul></div>
+    </div>
+  </div>
+
+  <!-- 10. Брестский мир -->
+  <div id="event10-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Брестский мир</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Ход переговоров</h3>
+        <p>3 марта 1918 года в Брест-Литовске Советская Россия подписала сепаратный мирный договор с Германией и её союзниками. Условия были тяжёлыми: Россия теряла Польшу, Прибалтику, часть Белоруссии и Украины, обязывалась демобилизовать армию и выплатить контрибуцию.</p>
+        <h3>Значение</h3>
+        <p>Мир позволил большевикам выйти из войны и сосредоточиться на удержании власти, но вызвал недовольство левых коммунистов и эсеров. Договор был аннулирован после поражения Германии в ноябре 1918 года.</p>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ</a></li></ul></div>
+    </div>
+  </div>
+
+  <!-- 11. Начало Гражданской войны -->
+  <div id="event11-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Начало Гражданской войны</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Хроника</h3>
+        <p>Весной-летом 1918 года началось полномасштабное военное противостояние между большевиками и их противниками. Мятеж Чехословацкого корпуса (май 1918) стал спусковым крючком. Сформировались основные центры Белого движения: Добровольческая армия на Дону, войска адмирала Колчака в Сибири, армии Деникина, Юденича, Врангеля.</p>
+        <h3>Причины</h3>
+        <ul><li>Роспуск Учредительного собрания</li><li>Национализация промышленности и земли</li><li>Брестский мир</li><li>Политика «военного коммунизма»</li></ul>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://1917.shpl.ru/" target="_blank">1917.shpl.ru</a></li><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li></ul></div>
+    </div>
+  </div>
+
+  <!-- 12. Красный террор -->
+  <div id="event12-page" class="event-page-content">
+    <div class="page-header"><button class="back-btn" data-back="main">← к графу</button><h2 class="event-title">Красный террор</h2></div>
+    <div class="event-content">
+      <div class="event-description">
+        <h3>Начало политики</h3>
+        <p>После покушения на Ленина 30 августа 1918 года и убийства председателя Петроградской ЧК Урицкого Совнарком объявил о начале «красного террора». 5 сентября 1918 года вышло постановление СНК «О красном терроре».</p>
+        <h3>Масштабы</h3>
+        <p>В годы Гражданской войны ЧК проводила массовые расстрелы, создавала концентрационные лагеря. Жертвами террора стали десятки тысяч человек: бывшие офицеры, священники, интеллигенция, крестьяне, рабочие, заподозренные в нелояльности.</p>
+        <h3>Последствия</h3>
+        <p>Красный террор стал инструментом удержания власти, но привёл к ожесточению обеих сторон конфликта, гибели значительной части интеллектуальной элиты и многолетнему расколу в обществе.</p>
+      </div>
+      <div class="sources-block"><h3>Источники</h3><ul><li><a class="source-link" href="http://prlib.ru/" target="_blank">Президентская библиотека</a></li><li><a class="source-link" href="https://nlr.ru/elibrary/RA3735/God-1917" target="_blank">РНБ</a></li></ul></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -614,7 +734,7 @@
         { id: 'e1', title: 'Февральская революция', kind: 'Перелом', short: 'Падение монархии, двоевластие', x: 540, y: 90, lane: 'center', pageId: 'event1' },
         { id: 'e2', title: 'Апрельские тезисы', kind: 'Программа', short: 'Ленин: курс на социализм', x: 340, y: 240, lane: 'left', pageId: 'event2' },
         { id: 'e3', title: 'Июльские дни', kind: 'Кризис', short: 'Конец двоевластия', x: 740, y: 240, lane: 'right', pageId: 'event3' },
-        { id: 'e4', title: 'Государственное совещание', kind: 'Политический форум', short: 'Консолидация сил, раскол', x: 440, y: 410, lane: 'center', pageId: 'event4' },
+        { id: 'e4', title: 'Государственное совещание', kind: 'Форум', short: 'Консолидация сил, раскол', x: 440, y: 410, lane: 'center', pageId: 'event4' },
         { id: 'e5', title: 'Корниловский мятеж', kind: 'Мятеж', short: 'Выступление ген. Корнилова', x: 280, y: 580, lane: 'left', pageId: 'event5' },
         { id: 'e6', title: 'Большевизация Советов', kind: 'Радикализация', short: 'Рост влияния большевиков', x: 800, y: 580, lane: 'right', pageId: 'event6' },
         { id: 'e7', title: 'Октябрьский переворот', kind: 'Переворот', short: 'Взятие власти большевиками', x: 540, y: 750, lane: 'center', pageId: 'event6' },
@@ -719,11 +839,5 @@
     showMainPage(); updateActiveLink('main');
   })();
 </script>
-
-<!--
-  Исправления:
-  - Подробно расписаны только первые 3 страницы (Февральская революция, Апрельские тезисы, Июльские дни)
-  - Остальные 9 страниц оставлены пустыми (плейсхолдеры)
--->
 </body>
 </html>
